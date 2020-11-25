@@ -12,6 +12,7 @@ TARGETS = {
     "robot_client": robot.RobotClient,
     "clean_data": data.clean_gps,
     "report": analysis.Report,
+    "visualize": analysis.visualize
 }
 
 CONFIGS = {
@@ -19,6 +20,7 @@ CONFIGS = {
     "robot_client": "config/robot_client.json",
     "clean_data": "config/clean_gps_and_imu_data.json",
     "report": "config/evaluation.json",
+    "visualize": "config/visualization.json",
 }
 
 
