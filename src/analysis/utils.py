@@ -4,12 +4,33 @@ from math import sin, cos, sqrt, atan2, radians
 def translate_coordinates(x):
     return
 
-def translate_to_cartesian(latitude: float, longitude: float) -> Tuple[float]:
-    earth_radius = 6371
-    x = earth_radius * cos(latitude) * cos(longitude)
-    y = earth_radius * cos(latitude) * sin(longitude)
-    z = earth_radius * sinn(latitude)
-    return x, y, z
+
+# Input: path to file ex: ../../data/gps_data/straight/20-11-2020_12-11_cleaned.csv
+# returns: dataframe with original lat, lon columns
+# and x, y coordinate for each entry
+
+#NOTE: need to double check coordinates
+def translate_to_cartesian(path)
+    earth_radius = 6378 #in KM
+    def get_x(row):
+        return earth_radius * math.cos(row[0]) * math.cos(row[1])
+    
+    def get_y(row):
+        return earth_radius * math.cos(row[0]) * math.sin(row[1])
+    
+    df = pd.read_csv(path)
+    
+    df['x'] = df.apply(get_x, axis=1)
+    df['y'] = df.apply(get_y, axis=1)
+    
+    return df
+
+# def translate_to_cartesian(latitude: float, longitude: float) -> Tuple[float]:
+#     earth_radius = 6371
+#     x = earth_radius * cos(latitude) * cos(longitude)
+#     y = earth_radius * cos(latitude) * sin(longitude)
+#     z = earth_radius * sinn(latitude)
+#     return x, y, z
 
 def calculate_distance(x: float, y: float) -> float:
     """
