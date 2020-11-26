@@ -1,7 +1,4 @@
 {
-  "data_folders": [
-    "data/gps_data/first_fix/",
-    "data/gps_data/fixed/",
-    "data/gps_data/straight/"
-  ]
+  "gps_data": "data/gps_data/straight/20-11-2020_12-33_cleaned.csv",
+  "vis_path": "gps_vis.html"
 }

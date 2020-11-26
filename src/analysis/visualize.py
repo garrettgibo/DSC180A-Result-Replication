@@ -1,5 +1,3 @@
-import os
-
 from gmplot import GoogleMapPlotter
 import pandas as pd
 
@@ -31,11 +29,11 @@ class CustomGoogleMapPlotter(GoogleMapPlotter):
         f.write('\n')
 
 
-def visualize(data_path, vis_path) -> None:
+def visualize(**config) -> None:
     """Create google maps render of path that is reported from gps"""
     initial_zoom = 16
 
-    df_gps = pd.read_csv(data_path)
+    df_gps = pd.read_csv(config["gps_data"])
 
     lats = df_gps.lat
     lons = df_gps.lon
@@ -48,19 +46,4 @@ def visualize(data_path, vis_path) -> None:
 
     gmap.plot(lats, lons, 'cornflowerblue', edge_width=1)
 
-    gmap.draw(vis_path)
-
-def visualize_all(**config) -> None:
-
-    for folder in config["data_folders"]:
-        vis_folder = folder.replace("data", "vis")
-
-        if not os.path.exists(vis_folder):
-            os.makedirs(vis_folder)
-
-        for gps_csv in os.listdir(folder):
-            data_path = folder + gps_csv
-            vis_path = vis_folder + gps_csv.replace("csv", "html")
-            visualize(data_path, vis_path)
-
-
+    gmap.draw(config["vis_path"])

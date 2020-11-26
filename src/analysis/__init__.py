@@ -1,4 +1,4 @@
-from .visualize import visualize_all
+from .visualize import visualize
 
 
 class Report:
