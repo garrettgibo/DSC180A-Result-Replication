@@ -1,1 +1,0 @@
-this is a sample placeholder. This folder will contain GPS logs from our robot
