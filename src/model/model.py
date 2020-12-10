@@ -20,11 +20,11 @@ def distance(lat1, lon1, lat2, lon2) -> float:
     # average radius of earth in feet
     r = 20890565.9449 
     
-    p1 = 0.5*pi-lat1
-    p2 = 0.5*pi-lat2
-    a = sin(p1)*sin(p2)*cos(lon1-lon2)+cos(p1)*cos(p2)
+    p1 = 0.5*np.pi-lat1
+    p2 = 0.5*np.pi-lat2
+    a = np.sin(p1)*np.sin(p2)*np.cos(lon1-lon2)+np.cos(p1)*np.cos(p2)
     
-    return r * arccos(a)
+    return r * np.arccos(a)
 
 # calculates root mean square error between a list of predictions and list of actual
 def rmse(expected, actual) -> float:    
@@ -35,14 +35,15 @@ def rmse(expected, actual) -> float:
     for i in range(total_preds):
         squared_error = (actual[i]-expected[i])**2
         sum_error += squared_error
-    
     return sqrt(sum_error/float(total_preds))
 
 # Takes in a path like: "../../data/gps_data/first_fix"
 # Finds dist between start and end coordinates (first and last entry in each cleaned csv respectively).
 # Compiles a df with batch name, run name, start coord, end coord, ground truth, calc'ed dist, and rmse
 # FOR THE WHOLE BATCH rather than single run
-def calc_distances(path, ground_truth) -> pd.DataFrame():
+def calc_distances(path) -> pd.DataFrame():
+    
+    ground_truth = int(path.split("../../data/gps_data/", 1)[1].replace("ft",""))
     files = glob.glob(path + "/*.csv")
     df_dist = pd.DataFrame(columns = ['batch', 'run','start_lat_lon','finish_lat_lon','expected_dist','actual_dist','rmse'])
     
@@ -60,3 +61,11 @@ def calc_distances(path, ground_truth) -> pd.DataFrame():
     df_dist.rmse = rmse(df_dist.expected_dist, df_dist.actual_dist)
 
     return df_dist
+
+def compile(path):
+    
+    all_folders = glob.glob(os.path.join(path, '*'))
+    for folder in all_folders:
+        df = calc_distances(folder)
+        df.to_csv("../../data/gps_data/rmse_all_batches.csv", mode="a")
+    
