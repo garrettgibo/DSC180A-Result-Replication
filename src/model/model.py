@@ -59,13 +59,21 @@ def calc_distances(path) -> pd.DataFrame():
                                   'actual_dist' : calc_dist}, 
                                  ignore_index = True)
     df_dist.rmse = rmse(df_dist.expected_dist, df_dist.actual_dist)
-
     return df_dist
 
-def compile(path):
+def make_rmse_table(path):
+    df = pd.DataFrame(columns = ['ground_truth', 'rmse'])
+    all_batches = glob.glob(os.path.join(path, '*'))
     
+    for batch in all_batches:
+        batch_df = calc_distances(batch)
+        df = df.append({'ground_truth' : batch_df.batch.iloc[0], 'rmse' : batch_df.rmse.iloc[0]}, ignore_index=True)
+    df = df.set_index('ground_truth')
+    df = df.sort_index(ascending=True)
+    return df
+    
+def compile_all(path):
     all_folders = glob.glob(os.path.join(path, '*'))
     for folder in all_folders:
         df = calc_distances(folder)
         df.to_csv("../../data/gps_data/rmse_all_batches.csv", mode="a")
-    
