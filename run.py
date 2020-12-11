@@ -13,6 +13,7 @@ TARGETS = {
     "clean_data": data.clean_gps,
     "visualize": analysis.visualize_all,
     "cep": analysis.cep,
+    "test": data.clean_gps
 }
 
 CONFIGS = {
@@ -21,6 +22,7 @@ CONFIGS = {
     "clean_data": "config/clean_gps_and_imu_data.json",
     "visualize": "config/visualization.json",
     "cep": "config/cep.json",
+    "test": "config/test.json"
 }
 
 
