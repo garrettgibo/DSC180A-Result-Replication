@@ -7,7 +7,7 @@ import numpy as np
 from sklearn.metrics import mean_squared_error
 from math import sqrt
 
-def distance(lat1, lon1, lat2, lon2) -> Float:
+def distance(lat1, lon1, lat2, lon2) -> float:
     """Calculates distance in feet between two pairs 
     of coordinates using Vicenty's algorithm and 
     assuming Earth is spherical. 
@@ -26,7 +26,7 @@ def distance(lat1, lon1, lat2, lon2) -> Float:
     
     return r * np.arccos(a)
 
-def rmse(expected, actual) -> Float:    
+def rmse(expected, actual) -> float:    
     """ Calculates root mean squared error between the
     calcualted distances of GPS outputted coordinates
     and distance of track for each batch.
@@ -40,7 +40,7 @@ def rmse(expected, actual) -> Float:
         
     return sqrt(sum_error/float(total_preds))
 
-def error(expected, actual) -> Float:
+def error(expected, actual) -> float:
     """ Calculates error between expected distance
     and actual distance as indicated by GPS outputs
     for a single run.
@@ -56,7 +56,7 @@ def calc_distances_batch(path) -> pd.DataFrame():
     of track, calculated distance, and rmse of the batch.
     """
     
-    ground_truth = int(path.split("../../data/gps_data/", 1)[1].replace("ft",""))
+    ground_truth = int(path.split("../data/gps_data/", 1)[1].replace("ft",""))
     files = glob.glob(path + "/*.csv")
     df_dist = pd.DataFrame(columns = ['batch', 'run','start_lat_lon','finish_lat_lon','expected_dist','actual_dist','rmse'])
     
@@ -116,3 +116,4 @@ def make_rmse_table(path):
     df = df.sort_index(ascending=True)
     return df
     
+
