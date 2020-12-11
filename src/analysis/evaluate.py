@@ -14,7 +14,7 @@ def cep(**config):
     lons -= np.mean(lons)
     cart_x -= np.mean(cart_x)
     cart_y -= np.mean(cart_y)
-    
+
     sigma_lat, sigma_lon = np.std(lats), np.std(lons)
     sigma_lat_c, sigma_lon_c = np.std(cart_x), np.std(cart_y)
 

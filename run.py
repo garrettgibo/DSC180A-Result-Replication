@@ -11,7 +11,6 @@ TARGETS = {
     "robot": robot.Robot,
     "robot_client": robot.RobotClient,
     "clean_data": data.clean_gps,
-    "report": analysis.Report,
     "visualize": analysis.visualize_all,
     "cep": analysis.cep,
 }
@@ -20,7 +19,6 @@ CONFIGS = {
     "robot": "config/robot_sim.json",
     "robot_client": "config/robot_client.json",
     "clean_data": "config/clean_gps_and_imu_data.json",
-    "report": "config/evaluation.json",
     "visualize": "config/visualization.json",
     "cep": "config/cep.json",
 }
