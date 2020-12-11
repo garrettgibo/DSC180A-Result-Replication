@@ -1,57 +1,40 @@
-# import pandas as pd
-
-
-# def clean_gps(**config) -> pd.DataFrame:
-#     """Clean raw gps data and transform into datafram with columns latitude and
-#     longitude.
-#     """
-#     df_gps = pd.read_csv(config["gps_raw_data"])
-#     df_gps.columns = ["lat", "lon", "alt"]
-#     df_gps.lat = df_gps.lat.str.replace("lat=", "").astype(float)
-#     df_gps.lon = df_gps.lon.str.replace("lon=", "").astype(float)
-#     df_gps.alt = df_gps.alt.str.replace("alt=", "").astype(float)
-
-#     cleaned_path = config["gps_raw_data"].replace("raw", "temp").replace("log", "csv")
-#     print(cleaned_path)
-#     df_gps.to_csv(cleaned_path, index=False)
-
-
-import pandas as pd
 import glob
 import os
 
-# cleans all folders inside data/raw and creates csv of
-# cleaned data to gps_data under a folder with the same
-# name as it is in data/raw
-# assumes the path to our raw data looks something
-# like this: '../data/raw/'
+import pandas as pd
 
-def clean_gps(path) -> None:
 
-    all_raw_folders = glob.glob(os.path.join(path, '*'))
+def clean_gps(**config) -> None:
+    """Clean raw GPS data into a csv format that has just lat, on, and alt values
 
-    for folder in all_raw_folders:
-        folder_path = folder + "/"
+    clean_gps finds all logs inside of "raw" folder and creates csv of cleaned 
+    data to gps_data under a folder with the same name as it is in "*/raw".
+    """
+    all_raw_folders = glob.glob(os.path.join(config["gps_raw_data"], '*'))
+    for folder_path in all_raw_folders:
+        # create gps_data folder if it doesn't  exist
+        folder_out = folder_path.replace("raw", "gps_data")
+        if not os.path.isdir(folder_out):
+            os.makedirs(folder_out, exist_ok=True)
 
-        if os.path.isdir(folder_path):
-            # make new folder inside gps_data with same batch name
-            new_folder_path = "../../data/gps_data/" + folder_path.split("../../data/raw/",1)[1]
-            os.mkdir(new_folder_path)
+        # clean files inside batch and send to folder under same batch name in gps_dats
+        all_raw_files = glob.glob(folder_path+ "/*.log")
+        for log_file in all_raw_files:
+            print("Cleaning raw data at", log_file)
+            df_gps = pd.read_csv(log_file, index_col=None, header=None,
+                                 names=['lat', 'lon', 'alt'])
+            df_gps.lat = df_gps.lat.str.replace("lat=", "").astype(float)
+            df_gps.lon = df_gps.lon.str.replace("lon=", "").astype(float)
+            df_gps.alt = df_gps.alt.str.replace("alt=", "").astype(float)
 
-            # clean files inside batch and send to folder under same batch name in gps_dats
-            all_raw_files = glob.glob(folder_path+ "/*.log")
-            for file in all_raw_files:
-                print("Cleaning raw data at", file)
+            # Update cleaned csv path
+            cleaned_file_path = log_file \
+                .replace(".log", "_cleaned.csv") \
+                .replace("raw", "gps_data")
+            df_gps.to_csv(cleaned_file_path, index=False)
 
-                df_gps = pd.read_csv(file, index_col=None, header=None, names=['lat', 'lon', 'alt'])
-                df_gps.lat = df_gps.lat.str.replace("lat=", "").astype(float)
-                df_gps.lon = df_gps.lon.str.replace("lon=", "").astype(float)
-                df_gps.alt = df_gps.alt.str.replace("alt=", "").astype(float)
+        print("Cleaned csv for all raw data inside", folder_path, "at",  folder_out)
 
-                cleaned_file_path = file.replace(".log", "_cleaned.csv").replace("../data/raw", "../data/gps_data")
-                df_gps.to_csv(cleaned_file_path, index=False)
-            print("Cleaned csv for all raw data inside", folder_path, " at ", "../data/gps_data/" + new_folder_path)
-            
 
 # Cleans every file within the fixed folder and combines
 # all of the cleaned files into one csv file
