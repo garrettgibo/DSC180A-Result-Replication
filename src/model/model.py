@@ -41,9 +41,10 @@ def rmse(expected, actual) -> float:
     return sqrt(sum_error/float(total_preds))
 
 # Takes in a path like: "../../data/gps_data/first_fix"
-# Finds dist between start and end coordinates (first and last entry in each cleaned csv respectively).
-# Compiles a df with batch name, run name, start coord, end coord, ground truth, calc'ed dist, and rmse
-# FOR THE WHOLE BATCH rather than single run
+# Finds dist between start and end coordinates (first and last 
+# entry in each cleaned csv respectively). Compiles a df with 
+# batch name, run name, start coord, end coord, ground truth, 
+# calc'ed dist, and rmse for the whole batch rather than single run
 def calc_distances(path) -> pd.DataFrame():
     
     ground_truth = int(path.split("../../data/gps_data/", 1)[1].replace("ft",""))
@@ -75,8 +76,3 @@ def make_rmse_table(path):
     df = df.sort_index(ascending=True)
     return df
     
-def compile_all(path):
-    all_folders = glob.glob(os.path.join(path, '*'))
-    for folder in all_folders:
-        df = calc_distances(folder)
-        df.to_csv("../../data/gps_data/rmse_all_batches.csv", mode="a")
