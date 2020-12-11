@@ -1,5 +1,6 @@
 import os
 
+import gmplot
 from gmplot import GoogleMapPlotter
 import pandas as pd
 
@@ -7,8 +8,7 @@ import pandas as pd
 # We subclass this just to change the map type
 # taken from: https://stackoverflow.com/a/54164812
 class CustomGoogleMapPlotter(GoogleMapPlotter):
-    def __init__(self, center_lat, center_lng, zoom, apikey='',
-                 map_type='satellite'):
+    def __init__(self, center_lat, center_lng, zoom, apikey='', map_type='satellite'):
         super().__init__(center_lat, center_lng, zoom, apikey)
 
         self.map_type = map_type
@@ -40,12 +40,13 @@ def visualize(data_path, vis_path) -> None:
     lats = df_gps.lat
     lons = df_gps.lon
 
+    apikey = "AIzaSyAx6D3SIFzHvW4nDrNjvxXCd4KZRVxlHnk"
     gmap = CustomGoogleMapPlotter(
             lats[0],
             lons[0],
             initial_zoom,
-            map_type='satellite')
-
+            map_type='satellite', apikey=apikey
+    )
     gmap.plot(lats, lons, 'cornflowerblue', edge_width=1)
 
     gmap.draw(vis_path)

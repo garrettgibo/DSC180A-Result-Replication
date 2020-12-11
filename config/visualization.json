@@ -1,7 +1,8 @@
 {
   "data_folders": [
-    "data/gps_data/first_fix/",
-    "data/gps_data/fixed/",
-    "data/gps_data/straight/"
+    "data/gps_data/5ft/",
+    "data/gps_data/10ft/",
+    "data/gps_data/20ft/",
+    "data/gps_data/50ft/"
   ]
 }
