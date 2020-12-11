@@ -5,3 +5,5 @@ __pycache__
 *.env
 mav*
 vis
+gps_data
+CEP
