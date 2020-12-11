@@ -39,7 +39,7 @@ def cartesian_conversion(path) -> pd.DataFrame():
 # Takes in the fixed_all.csv and adds two new columns:
 # the x and y coordinates of latitiude and longitude 
 def transform_fixed_cartesian() -> None:
-    path = "../../data/fixed_all.csv"
+    path = "data/CEP/fixed_all.csv"
     df = cartesian_conversion(path)
     new_file_path = "data/CEP/fixed_all_cartesian.csv"
     df.to_csv(new_file_path, index=False)
