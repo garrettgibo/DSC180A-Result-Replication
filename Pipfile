@@ -10,7 +10,9 @@ pymavlink = "*"
 dronekit-sitl = "*"
 mavproxy = "*"
 pandas = "*"
-gmplot = "*"
+bokeh = "*"
+numpy = "*"
+matplotlib = "*"
 
 [requires]
 python_version = "3.8"
