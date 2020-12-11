@@ -1,6 +1,6 @@
 import os
 
-from bokeh.plotting import gmap 
+from bokeh.plotting import gmap
 from bokeh.models import GMapOptions, ColumnDataSource
 from bokeh.io import output_file, show, save
 import pandas as pd
@@ -12,16 +12,16 @@ def visualize(data_path, vis_path) -> None:
     lats = df_gps.lat.values
     lons = df_gps.lon.values
 
-    # apikey = "AIzaSyAx6D3SIFzHvW4nDrNjvxXCd4KZRVxlHnk"
-    api_key = os.getenv("GMAP_API_KEY")
+    api_key = "AIzaSyAx6D3SIFzHvW4nDrNjvxXCd4KZRVxlHnk"
+    #api_key = os.getenv("GMAP_API_KEY")
 
-    # configuring the Google map 
+    # configuring the Google map
     google_map_options = GMapOptions(lat=lats[0],
                                      lng=lons[0],
                                      map_type="satellite",
-                                     zoom=25) 
+                                     zoom=25)
 
-    # generating the Google map 
+    # generating the Google map
     google_map = gmap(api_key, google_map_options)
     google_map.line(lons, lats, color="red")
 
@@ -42,5 +42,3 @@ def visualize_all(**config) -> None:
             data_path = folder + gps_csv
             vis_path = vis_folder + gps_csv.replace("csv", "html")
             visualize(data_path, vis_path)
-
-
