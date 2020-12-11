@@ -1,54 +1,52 @@
-import geopy.distance
-from math import sin, cos, sqrt, atan2, radians
+import math
+import pandas as pd 
+import glob
+import os
 
-def translate_coordinates(x):
-    return
+# Transforms latitude and longitude into a cartesian x
+# coordinate
+def get_x(ellps, lat, lon, h) -> Float:
+    """
+    Compute the Geocentric (Cartesian) Coordinates X, Y, Z
+    given the Geodetic Coordinates lat, lon + Ellipsoid Height h
+    """
+    wgs84 = (6378137, 298.257223563)
+    a, rf = ellps
+    lat_rad = math.radians(lat)
+    lon_rad = math.radians(lon)
+    N = a / math.sqrt(1 - (1 - (1 - 1 / rf) ** 2) * (math.sin(lat_rad)) ** 2)
+    X = (N + h) * math.cos(lat_rad) * math.cos(lon_rad)
+    return X
 
-
-# Input: path to file ex: ../../data/gps_data/straight/20-11-2020_12-11_cleaned.csv
-# returns: dataframe with original lat, lon columns
-# and x, y coordinate for each entry
-
-#NOTE: need to double check coordinates
-def translate_to_cartesian(path)
-    earth_radius = 6378 #in KM
-    def get_x(row):
-        return earth_radius * math.cos(row[0]) * math.cos(row[1])
+# Transforms latitude and longitude into a cartesian y
+# coordinate
+def get_y(ellps, lat, lon, h) -> Float:
+    """
+    Compute the Geocentric (Cartesian) Coordinates X, Y, Z
+    given the Geodetic Coordinates lat, lon + Ellipsoid Height h
+    """
+    wgs84 = (6378137, 298.257223563)
+    a, rf = ellps
+    lat_rad = math.radians(lat)
+    lon_rad = math.radians(lon)
+    N = a / math.sqrt(1 - (1 - (1 - 1 / rf) ** 2) * (math.sin(lat_rad)) ** 2)
+    Y = (N + h) * math.cos(lat_rad) * math.sin(lon_rad)
+    return Y
     
-    def get_y(row):
-        return earth_radius * math.cos(row[0]) * math.sin(row[1])
-    
+# Takes in a path that is a file and returns a dataframe of the file including
+# a x coordinate columnn and y coordinate column
+def cartesian_conversion(path) -> pd.DataFrame():
     df = pd.read_csv(path)
-    
-    df['x'] = df.apply(get_x, axis=1)
-    df['y'] = df.apply(get_y, axis=1)
-    
+    df['x'] = df2.apply(lambda row: get_x(wgs84, row.lat, row.lon, row.alt), axis =1)
+    df['y'] = df2.apply(lambda row: get_y(wgs84, row.lat, row.lon, row.alt), axis =1)
     return df
 
-# def translate_to_cartesian(latitude: float, longitude: float) -> Tuple[float]:
-#     earth_radius = 6371
-#     x = earth_radius * cos(latitude) * cos(longitude)
-#     y = earth_radius * cos(latitude) * sin(longitude)
-#     z = earth_radius * sinn(latitude)
-#     return x, y, z
+# Takes in the fixed_all.csv and adds two new columns:
+# the x and y coordinates of latitiude and longitude 
+def transform_fixed_cartesian() -> None:
+    path = "../../data/fixed_all.csv"
+    df = cartesian_conversion(path)
+    new_file_path = "../../data/fixed_all_cartesian.csv"
+    df.to_csv(new_file_path, index=False)
 
-def calculate_distance(x: float, y: float) -> float:
-    """
-    Calculates the distance between two gps coordinates
-    X should be a list of [long1, lat1]
-    y should be a list of [long2, lat2]
-    """
-    # return geopy.distance.vincenty(x, y).km
-    R = 6370
-    lat1 = radians(x[0])  #insert value
-    lon1 = radians(x[1])
-    lat2 = radians(y[0])
-    lon2 = radians(y[1])
 
-    dlon = lon2 - lon1
-    dlat = lat2- lat1
-
-    a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
-    c = 2 * atan2(sqrt(a), sqrt(1-a))
-    distance = R * c
-    return distance
