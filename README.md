@@ -11,6 +11,11 @@ To run any of the following targets, the command is:
 python run.py <target>
 ```
 
+### test 
+
+`test` runs our projects test code by extracting, transforming, and then cleaning
+the raw GPS tst data such that it could be used. 
+
 ### robot
 
 `robot` creates an instance of the
@@ -34,11 +39,6 @@ that it can be used for anaylsis.
 
 `report` will have the necessary methods to create a report of the
 findings.
-
-### Responsibilities
-* Garrett Gibo developed the skeleton structure of the repository.
-* Neghena Faizyar developed edits to the readme.md
-* Shiyin Liang developed edits to the readme.md
 
 
 ## Docker
