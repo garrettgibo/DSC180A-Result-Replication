@@ -3,10 +3,15 @@ import pandas as pd
 import glob
 import os
 
-# Transforms latitude and longitude into a cartesian x
-# coordinate
-# Source: https://codereview.stackexchange.com/questions/195933/convert-geodetic-coordinates-to-geocentric-cartesian
-def get_x(ellps, lat, lon, h) -> Float:
+def get_x(ellps, lat, lon, h) -> float:
+    """Transforms latitude and longitude into a cartesian
+    x position.
+    
+    Source
+    Author: YeO
+    Date: 6/16/2018
+    Availability: https://codereview.stackexchange.com/questions/195933/convert-geodetic-coordinates-to-geocentric-cartesian
+    """
     wgs84 = (6378137, 298.257223563)
     a, rf = ellps
     lat_rad = math.radians(lat)
@@ -15,11 +20,15 @@ def get_x(ellps, lat, lon, h) -> Float:
     X = (N + h) * math.cos(lat_rad) * math.cos(lon_rad)
     return X
 
-# Transforms latitude and longitude into a cartesian y
-# coordinate
-# Source: https://codereview.stackexchange.com/questions/195933/convert-geodetic-coordinates-to-geocentric-cartesian
-def get_y(ellps, lat, lon, h) -> Float:
-    wgs84 = (6378137, 298.257223563)
+def get_y(ellps, lat, lon, h) -> float:
+    """Transforms latitude and longitude into a cartesian
+    y position.
+    
+    Source
+    Author: YeO
+    Date: 6/16/2018
+    Availability: https://codereview.stackexchange.com/questions/195933/convert-geodetic-coordinates-to-geocentric-cartesian
+    """
     a, rf = ellps
     lat_rad = math.radians(lat)
     lon_rad = math.radians(lon)
@@ -27,19 +36,23 @@ def get_y(ellps, lat, lon, h) -> Float:
     Y = (N + h) * math.cos(lat_rad) * math.sin(lon_rad)
     return Y
     
-# Takes in a path that is a file and returns a dataframe of the file including
-# a x coordinate columnn and y coordinate column
-# Source: https://codereview.stackexchange.com/questions/195933/convert-geodetic-coordinates-to-geocentric-cartesian
 def cartesian_conversion(path) -> pd.DataFrame():
+    """ Creates a dataframe and translates the 
+    gps coordines into cartesian x and y coordinates
+    """
     df = pd.read_csv(path)
-    df['x'] = df2.apply(lambda row: get_x(wgs84, row.lat, row.lon, row.alt), axis =1)
-    df['y'] = df2.apply(lambda row: get_y(wgs84, row.lat, row.lon, row.alt), axis =1)
+    wgs84 = (6378137, 298.257223563)
+    df['x'] = df.apply(lambda row: get_x(wgs84, row.lat, row.lon, row.alt), axis =1)
+    df['y'] = df.apply(lambda row: get_y(wgs84, row.lat, row.lon, row.alt), axis =1)
     return df
 
-# Takes in the fixed_all.csv and adds two new columns:
-# the x and y coordinates of latitiude and longitude 
+
 def transform_fixed_cartesian() -> None:
+    """ Takes in fixed_all.csv and addss two new columnns:
+    the translated x and y coordinates of the original
+    gps coordinates
+    """
     path = "data/CEP/fixed_all.csv"
     df = cartesian_conversion(path)
-    new_file_path = "data/CEP/fixed_all_cartesian.csv"
+    new_file_path = "../data/CEP/fixed_all_cartesian.csv"
     df.to_csv(new_file_path, index=False)
