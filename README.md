@@ -5,7 +5,7 @@ Neghena Faizyar, Garrett Gibo, Shiyin Liang
 [Assignments Link](https://dsc-capstone.github.io/assignments/quarter-1-methodology/)
 
 
-## Running the Project
+# Running the Project
 
 ## Data
 To get the data: 
