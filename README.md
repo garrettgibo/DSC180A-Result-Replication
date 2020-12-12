@@ -1,5 +1,7 @@
 # DSC 180A Result Replication
 
+Neghena Faizyar, Garrett Gibo, Shiyin Liang
+
 [Assignments Link](https://dsc-capstone.github.io/assignments/quarter-1-methodology/)
 
 
@@ -16,6 +18,23 @@ python run.py <target>
 `test` runs our projects test code by extracting, transforming, and then cleaning
 the raw GPS tst data such that it could be used. 
 
+### clean_data
+
+`clean_data` will extract, transform, and clean the raw gps data so
+that it can be used for anaylsis.
+
+### visualize
+
+`visualize` create visualizations for all of our data using bokeh. 
+It will plot the line the GPS reports it has traveled and uploads it into 
+the vis folder of our repository. 
+
+### cep
+
+`cep` will create will calculates CEPs, 2DRMS, and then plots and creates a 
+graph of the CEP and 2DRMS circles with the datapoints. 
+
+
 ### robot
 
 `robot` creates an instance of the
@@ -29,16 +48,6 @@ as a template for the following targets.
 The client connects over tcp or udp and uses the
 [MAVLink](https://mavlink.io/en/messages/common.html), standard for
 the messages.
-
-### clean_gps
-
-`clean_gps` will extract, transform, and clean the raw gps data so
-that it can be used for anaylsis.
-
-### report
-
-`report` will have the necessary methods to create a report of the
-findings.
 
 
 ## Docker
