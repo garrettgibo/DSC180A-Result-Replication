@@ -1,8 +1,4 @@
-# 1) choose base container
-# generally use the most recent tag
-
-# data science notebook
-# https://hub.docker.com/repository/docker/ucsdets/datascience-notebook/tags
+# choose base container
 FROM ucsdets/datascience-notebook:2020.2-stable
 
 # change to root to install packages
