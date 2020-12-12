@@ -20,9 +20,9 @@ USER root
 RUN	apt-get install -y htop && \
     apt-get install -y aria2 && \
     apt-get install -y nmap && \
-    apt-get install -y traceroute 
+    apt-get install -y traceroute
 
-RUN conda install --yes geopandas 
+RUN conda install --yes geopandas
 RUN conda install --yes bokeh
 RUN pip install --no-cache-dir babypandas
 RUN pip install --no-cache-dir geopy
