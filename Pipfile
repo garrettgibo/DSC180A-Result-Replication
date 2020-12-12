@@ -13,6 +13,7 @@ pandas = "*"
 bokeh = "*"
 numpy = "*"
 matplotlib = "*"
+utm = "*"
 
 [requires]
 python_version = "3.8"
