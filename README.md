@@ -8,7 +8,7 @@ Neghena Faizyar, Garrett Gibo, Shiyin Liang
 ## Running the Project
 
 To get the data: 
-[Link to Data] (https://drive.google.com/drive/folders/1wh7EtgtrS8Wi8xBIe1VwzFDBnp751XHv?usp=sharing)
+[Link to Data](https://drive.google.com/drive/folders/1wh7EtgtrS8Wi8xBIe1VwzFDBnp751XHv?usp=sharing)
 
 Download this data to put into the data/raw folder.  
 
