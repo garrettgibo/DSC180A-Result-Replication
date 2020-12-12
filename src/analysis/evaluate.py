@@ -11,16 +11,16 @@ def cep(**config):
     lats, lons = df_gps.lat, df_gps.lon
     utm_x, utm_y = convert_utm(list(zip(lats, lons)))
 
-    # find delta "x" and "y"
-    utm_x -= np.mean(utm_x)
-    utm_y -= np.mean(utm_y)
+    # find delta "x" and "y" and convert to feet
+    utm_x = (utm_x - np.mean(utm_x)) * 3.28084
+    utm_y = (utm_y - np.mean(utm_y)) * 3.28084
 
     sigma_x, sigma_y = np.std(utm_x), np.std(utm_y)
 
     cep = 0.59 * (sigma_x + sigma_y)
-    drms_gps = two_d_rms(utm_x, utm_y)
+    drms = two_d_rms(utm_x, utm_y)
 
-    plot_results(cep, drms_gps, utm_x, utm_y)
+    plot_results(cep, drms, utm_x, utm_y)
 
     return cep
 
@@ -57,8 +57,8 @@ def plot_results(cep, drms, x, y):
     position = plt.scatter(x, y)
 
     plt.title("GPS Fixed Position")
-    plt.xlabel("delta x (m)")
-    plt.ylabel("delta y (m)")
+    plt.xlabel("delta x (ft)")
+    plt.ylabel("delta y (ft)")
     plt.legend([position, circle_cep, circle_drms],
                ["Distance From Average", "CEP (50%)", "2DRMS (95-98%)"])
 
@@ -67,5 +67,5 @@ def plot_results(cep, drms, x, y):
 
     plt.axis('equal')
 
-    plt.show()
+    # plt.show()
     
