@@ -6,6 +6,7 @@ USER root
 
 # Move to working directory /build
 WORKDIR /build
+
 COPY . .
 
 # install packages
