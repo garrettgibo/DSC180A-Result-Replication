@@ -39,3 +39,13 @@ findings.
 * Garrett Gibo developed the skeleton structure of the repository.
 * Neghena Faizyar developed edits to the readme.md
 * Shiyin Liang developed edits to the readme.md
+
+
+## Docker
+
+```sh
+# Build
+docker build -t <user>/<image-name> -f Docker/Dockerfile .
+# Push
+docker push <user>/<image-name>
+```
