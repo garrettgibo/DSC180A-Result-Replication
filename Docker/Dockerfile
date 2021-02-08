@@ -1,5 +1,5 @@
-# choose base container
-FROM ucsdets/datascience-notebook:2020.2-stable
+ARG BASE_IMAGE=ucsdets/datascience-notebook:2020.2-stable
+FROM ${BASE_IMAGE}
 
 # change to root to install packages
 USER root

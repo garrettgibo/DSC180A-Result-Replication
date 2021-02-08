@@ -1,4 +1,4 @@
 {
-    "dockerhub-id": "nfaizyar/dsc180a-final-report:latest",
-    "repository-id": "https://github.com/garrettgibo/DSC180A-Result-Replication.git"
+    "dockerhub-id": "garrettgibo/dsc180-autonomous-system:latest",
+    "repository-id": "https://github.com/garrettgibo/DSC180-Autonomous-Systems.git"
 }
