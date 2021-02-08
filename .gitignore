@@ -1,5 +1,9 @@
 ./data/
 __pycache__
 .ipynb_checkpoints
-mav*
 *.html
+*.env
+mav*
+vis
+gps_data
+CEP

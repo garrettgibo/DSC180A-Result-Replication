@@ -1,15 +1,46 @@
 # DSC 180A Result Replication
 
+Neghena Faizyar, Garrett Gibo, Shiyin Liang
+
 [Assignments Link](https://dsc-capstone.github.io/assignments/quarter-1-methodology/)
 
 
-## Running the Project
+# Running the Project
 
+## Data
+To get the data: 
+[Link to Data](https://drive.google.com/drive/folders/1wh7EtgtrS8Wi8xBIe1VwzFDBnp751XHv?usp=sharing)
+
+Download this data to put into the data/raw folder.  
+
+## Targets
 To run any of the following targets, the command is:
 
 ```sh
 python run.py <target>
 ```
+
+### test 
+
+`test` runs our projects test code by extracting, transforming, and then cleaning
+the raw GPS tst data such that it could be used. 
+
+### clean_data
+
+`clean_data` will extract, transform, and clean the raw gps data so
+that it can be used for anaylsis.
+
+### visualize
+
+`visualize` create visualizations for all of our data using bokeh. 
+It will plot the line the GPS reports it has traveled and uploads it into 
+the vis folder of our repository. 
+
+### cep
+
+`cep` will create will calculates CEPs, 2DRMS, and then plots and creates a 
+graph of the CEP and 2DRMS circles with the datapoints. 
+
 
 ### robot
 
@@ -25,17 +56,12 @@ The client connects over tcp or udp and uses the
 [MAVLink](https://mavlink.io/en/messages/common.html), standard for
 the messages.
 
-### clean_gps
 
-`clean_gps` will extract, transform, and clean the raw gps data so
-that it can be used for anaylsis.
+## Docker
 
-### report
-
-`report` will have the necessary methods to create a report of the
-findings.
-
-### Responsibilities
-* Garrett Gibo developed the skeleton structure of the repository.
-* Neghena Faizyar developed edits to the readme.md
-* Shiyin Liang developed edits to the readme.md
+```sh
+# Build
+docker build -t <user>/<image-name> -f Docker/Dockerfile .
+# Push
+docker push <user>/<image-name>
+```
